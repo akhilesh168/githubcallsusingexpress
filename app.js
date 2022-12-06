@@ -48,7 +48,7 @@ app.get('/', async (req, res) => {
       deploymentType,
       existingQbCliConfigs.repositoryId
     );
-    //get file contents from the build folder
+    //get file contents from the build
     try {
       //gets an array of file contents.  Each item in the array ahs filename, and filecontent, and conditionally a "isIndexFile" boolean.
       var arrayOfFileContents = await Promise.all(
