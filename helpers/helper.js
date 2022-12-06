@@ -1,8 +1,9 @@
 const { Octokit } = require('@octokit/rest');
 
 const octokit = new Octokit({
-  auth: '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',
+  auth: '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',
 });
+const axios = require('axios');
 
 module.exports = {
   getFileContent: async ({ owner, repo, path, ref }) => {

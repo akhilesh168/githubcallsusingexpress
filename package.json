@@ -4,6 +4,10 @@
   "scripts": {
     "start": "node ./bin/www"
   },
+  "author": {
+    "email": "akhilesh.sharma168@gmail.com",
+    "name": "Akhilesh"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
