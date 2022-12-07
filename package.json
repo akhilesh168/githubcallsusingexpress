@@ -9,7 +9,7 @@
     "name": "Akhilesh"
   },
   "bin": {
-    "deployqb": "app.js"
+    "deployqbfromgithub": "app.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -17,6 +17,7 @@
   "repository": {
     "url": "git@github.com:akhilesh168/githubcallsusingexpress.git"
   },
+  "main": "app.js",
   "dependencies": {
     "@octokit/rest": "^19.0.5",
     "axios": "^1.2.0",

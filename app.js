@@ -1,12 +1,9 @@
-let express = require('express');
-let app = express();
 const helpers = require('./helpers/helper');
 const stripBom = require('strip-bom');
 const {
   generateAllAPICallPromises,
   addUpdateDbPage,
 } = require('./helpers/helper');
-require('dotenv').config();
 
 let arguments = process.argv;
 console.log('Script started reading arguments', arguments);
