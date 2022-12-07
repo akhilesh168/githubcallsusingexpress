@@ -1,8 +1,9 @@
 const { Octokit } = require('@octokit/rest');
 
 const octokit = new Octokit({
-  auth: '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',
+  auth: process.env.GITHUB_TOKEN,
 });
+
 const axios = require('axios');
 
 module.exports = {
