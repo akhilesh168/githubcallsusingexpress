@@ -121,5 +121,3 @@ const run = async () => {
 };
 
 run();
-
-module.exports = app;

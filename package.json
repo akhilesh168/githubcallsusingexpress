@@ -8,6 +8,9 @@
     "email": "akhilesh.sharma168@gmail.com",
     "name": "Akhilesh"
   },
+  "bin": {
+    "deployqb": "app.js"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -17,11 +20,8 @@
   "dependencies": {
     "@octokit/rest": "^19.0.5",
     "axios": "^1.2.0",
-    "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
-    "express": "~4.16.1",
-    "morgan": "~1.9.1",
     "strip-bom": "^4.0.0"
   }
 }
