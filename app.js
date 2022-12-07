@@ -1,5 +1,5 @@
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
 const helpers = require('./helpers/helper');
 const stripBom = require('strip-bom');
 const {
@@ -8,10 +8,11 @@ const {
 } = require('./helpers/helper');
 require('dotenv').config();
 
-var arguments = process.argv;
-
+let arguments = process.argv;
+console.log('Script started reading arguments', arguments);
 app.get('/', async (req, res) => {
   try {
+    console.log('Script started');
     const OWNER = arguments[2].split('=')[1];
     const REPO_NAME = arguments[3].split('=')[1];
     const APP_TOKEN = arguments[4].split('=')[1];
@@ -31,8 +32,9 @@ app.get('/', async (req, res) => {
       });
       // process.exit(0);
     }
+    console.log('Script getFileContent started');
     const response = await helpers.getFileContent(gitRepoObjForQbCLi);
-
+    console.log('Script getFileContent completed');
     let decoded = Buffer.from(response, 'base64').toString();
 
     const existingQbCliConfigs = JSON.parse(decoded);
@@ -62,7 +64,8 @@ app.get('/', async (req, res) => {
     //get file contents from the build
     try {
       //gets an array of file contents.  Each item in the array ahs filename, and filecontent, and conditionally a "isIndexFile" boolean.
-      var arrayOfFileContents = await Promise.all(
+      console.log('Script api getAllFileContents started');
+      let arrayOfFileContents = await Promise.all(
         helpers.getAllFileContents(
           existingQbCliConfigs.filesConf,
           prefix,
@@ -77,9 +80,9 @@ app.get('/', async (req, res) => {
         );
         return;
       }
-
+      console.log('Script api getAllFileContents completed');
       //add the appopriate extension prefix to each file depending on whether it is dev/prod deployment.  IF an index file has been listed, set the indexFileName below.
-      var indexFileName = null;
+      let indexFileName = null;
       arrayOfFileContents = arrayOfFileContents.map((item) => {
         const [fileName, fileContents, isIndexFile] = item;
         if (isIndexFile) {
@@ -93,6 +96,7 @@ app.get('/', async (req, res) => {
         apptoken: APP_TOKEN,
         usertoken: USER_TOKEN,
       };
+      console.log('Script api addUpdateDbPage started');
       const response = await Promise.all(
         generateAllAPICallPromises(
           configs,
@@ -100,7 +104,8 @@ app.get('/', async (req, res) => {
           addUpdateDbPage
         )
       );
-      return;
+      console.log('Script api addUpdateDbPage completed');
+      process.exit(0);
     } catch (err) {
       console.error(
         'Please check your qbcli.json in the root of your project. Make sure you have mapped the correct path to all of the files you are trying to deploy.  Also check all filenames match what is in those directories and make sure those files have content (this tool will not deploy blank files - add a comment if you would like to deploy without code).'
