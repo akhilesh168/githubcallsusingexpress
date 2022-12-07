@@ -10,7 +10,8 @@ require('dotenv').config();
 
 let arguments = process.argv;
 console.log('Script started reading arguments', arguments);
-app.get('/', async (req, res) => {
+
+const run = async () => {
   try {
     console.log('Script started');
     const OWNER = arguments[2].split('=')[1];
@@ -115,8 +116,10 @@ app.get('/', async (req, res) => {
 
     /* res.status(200).json(decoded); */
   } catch (err) {
-    res.status(500).json({ message: err });
+    console.log(err);
   }
-});
+};
+
+run();
 
 module.exports = app;
