@@ -6,6 +6,7 @@ const {
   generateAllAPICallPromises,
   addUpdateDbPage,
 } = require('./helpers/helper');
+const xmlparser = require('fast-xml-parser');
 
 let arguments = process.argv;
 console.log('Script started reading arguments', arguments);
@@ -104,16 +105,43 @@ const run = async () => {
           addUpdateDbPage
         )
       );
+      if (response.length > 0) {
+        response.forEach((element) => {
+          const responseObj = xmlparser(element);
+          const errorCode = responseObj.qdbapi.errcode;
+          const pageName = errData.qdbapi.pagename;
+          console.error(`Error Occurred for File: ${pageName}\n\n`);
+          if (errorCode) {
+            console.error(
+              `API call failure - files weren\'t deployed successfully - see error details below. If you need to update your user/application token, you can run deployqb init again to reconfigure those values.\n\nQuick Base Response:`
+            );
+            return;
+          }
+        });
+      }
       console.log('Script api addUpdateDbPage completed');
+      console.log('Files deployed successfully!');
       process.exit(0);
     } catch (err) {
       console.error(
-        'Please check your qbcli.json in the root of your project. Make sure you have mapped the correct path to all of the files you are trying to deploy.  Also check all filenames match what is in those directories and make sure those files have content (this tool will not deploy blank files - add a comment if you would like to deploy without code).'
+        `API call failure - files weren\'t deployed successfully - see error details below. If you need to update your user/application token, you can run deployqb init again to reconfigure those values.\n\nQuick Base Response:`
       );
-      return;
-    }
 
-    /* res.status(200).json(decoded); */
+      if (err?.response?.statusText) {
+        console.error(err.response.statusText);
+      }
+
+      if (err?.response?.data) {
+        console.error(err?.response?.data);
+      }
+
+      if (err?.response?.config?.data) {
+        var errData = xmlparser.parse(err?.response?.config?.data);
+        var pageName = errData?.qdbapi?.pagename;
+        console.error(`Error Occurred for File: ${pageName}\n\n`);
+      }
+      process.exit(0);
+    }
   } catch (err) {
     console.log(err);
   }
