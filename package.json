@@ -1,6 +1,6 @@
 {
   "name": "@akhilesh168/githubcallsusingexpress",
-  "version": "0.15.0",
+  "version": "1.0.0",
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -10,9 +10,6 @@
   },
   "bin": {
     "deployqbfromgithub": "app.js"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "url": "git@github.com:akhilesh168/githubcallsusingexpress.git"

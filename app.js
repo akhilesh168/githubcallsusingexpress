@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const helpers = require('./helpers/helper');
 const stripBom = require('strip-bom');
 const {
