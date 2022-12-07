@@ -31,7 +31,6 @@ app.get('/', async (req, res) => {
       });
       // process.exit(0);
     }
-    console.log(APP_TOKEN, USER_TOKEN);
     const response = await helpers.getFileContent(gitRepoObjForQbCLi);
 
     let decoded = Buffer.from(response, 'base64').toString();
@@ -101,7 +100,7 @@ app.get('/', async (req, res) => {
           addUpdateDbPage
         )
       );
-      console.log('result', response);
+      return;
     } catch (err) {
       console.error(
         'Please check your qbcli.json in the root of your project. Make sure you have mapped the correct path to all of the files you are trying to deploy.  Also check all filenames match what is in those directories and make sure those files have content (this tool will not deploy blank files - add a comment if you would like to deploy without code).'
@@ -109,7 +108,7 @@ app.get('/', async (req, res) => {
       return;
     }
 
-    res.status(200).json(decoded);
+    /* res.status(200).json(decoded); */
   } catch (err) {
     res.status(500).json({ message: err });
   }
